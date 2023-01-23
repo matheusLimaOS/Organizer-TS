@@ -6,10 +6,10 @@
 #### insert a movie
 
 ### GET: /movie
-#### Return all list of movies
+#### Return list of all movies
 
 ### GET: /movie/alreadysaw
-#### Return all list of movies who are already saw
+#### Returns the list of movies that have already been seen
 
 ### PUT: /movie/:id
 #### Body: ```{ "comment"?: "Filme legal" } ```
