@@ -14,3 +14,10 @@ export async function insert(movie:Movie) {
 export async function get():Promise<EntityMovie[]> {
     return (await connection.query(`SELECT * FROM movies`)).rows;
 }
+
+export async function getAlreadySaw():Promise<EntityMovie[]> {
+    return (await connection.query(`
+        SELECT * FROM movies m
+        WHERE m.alreadySaw = true
+    `)).rows;
+}
