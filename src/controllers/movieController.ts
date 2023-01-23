@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import { insertMovieSchema } from "../schemas/movieSchema.js";
-import { Movie } from "../protocols";
+import { EntityMovie, Movie } from "../protocols";
 import { ValidationResult } from "joi";
+import { insert } from "../repositories/movieRepository.js";
 
 export async function insertMovie(req:Request,res:Response){
     try{
@@ -15,8 +16,8 @@ export async function insertMovie(req:Request,res:Response){
             return;
         }
 
+        await insert(body); 
 
-        
         res.sendStatus(200);
     }
     catch(e){
