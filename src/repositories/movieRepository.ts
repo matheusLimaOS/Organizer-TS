@@ -1,5 +1,5 @@
 import {connection} from '../database/database.js';
-import { Movie } from '../protocols.js';
+import { EntityMovie, Movie } from '../protocols.js';
 
 export async function insert(movie:Movie) {
     await connection.query(`INSERT INTO movies VALUES (default, $1, $2, $3, $4, $5)`, [
@@ -9,4 +9,8 @@ export async function insert(movie:Movie) {
       movie.streaming,
       movie.genre
     ]);
+}
+
+export async function get():Promise<EntityMovie[]> {
+    return (await connection.query(`SELECT * FROM movies`)).rows;
 }
