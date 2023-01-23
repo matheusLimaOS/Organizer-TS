@@ -4,7 +4,7 @@ import { EntityMovie, Movie } from '../protocols.js';
 export async function insert(movie:Movie) {
     await connection.query(`INSERT INTO movies VALUES (default, $1, $2, $3, $4, $5)`, [
       movie.name,
-      movie.alreadySaw,
+      movie.alreadySeen,
       (movie.comment === undefined ? null : movie.comment),
       movie.streaming,
       movie.genre
@@ -25,14 +25,14 @@ export async function getByID(id:string):Promise<EntityMovie[]> {
 export async function getAlreadySaw():Promise<EntityMovie[]> {
     return (await connection.query(`
         SELECT * FROM movies m
-        WHERE m.alreadySaw = true
+        WHERE m.alreadySeen = true
     `)).rows;
 }
 
 export async function update(id:string,comment:string) {
     return (await connection.query(`
         UPDATE movies
-        SET "alreadysaw" = true, comment = $1
+        SET "alreadyseen" = true, comment = $1
         WHERE id = $2
     `,[
         (comment === undefined ? null : comment),
