@@ -8,7 +8,7 @@
 ### GET: /movie
 #### Return list of all movies
 
-### GET: /movie/alreadysaw
+### GET: /movie/alreadyseen
 #### Returns the list of movies that have already been seen
 
 ### PUT: /movie/:id
