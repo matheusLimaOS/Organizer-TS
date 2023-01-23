@@ -1,7 +1,19 @@
 # Organizer-TS
+## Make a list of movies you are interested in or have watched
 
-## POST: /event
-## Body: ```javascript { "name": "Koe", "startDate": "2022-12-12" } ```
-  
+### POST: /movie
+#### Body: ```{ "name": "Os Vingadores", "streaming": "netflix", "genre": "action","alreadySaw": "false" ,"comment"?: "Filme legal" } ```
+#### insert a movie
 
-## GET: /event?name=koe
+### GET: /movie
+#### Return all list of movies
+
+### GET: /movie/alreadysaw
+#### Return all list of movies who are already saw
+
+### PUT: /movie/:id
+#### Body: ```{ "comment"?: "Filme legal" } ```
+#### mark a movie as already seen, and its possible to add a comment
+
+### DELETE: /movie/:id
+#### Delete a movie
