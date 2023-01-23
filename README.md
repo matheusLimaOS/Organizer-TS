@@ -1,6 +1,6 @@
 # Organizer-TS
 ## Make a list of movies you are interested in or have watched
-##LINK DEPLOY: https://orgarnizer.onrender.com
+## LINK DEPLOY: https://orgarnizer.onrender.com
 
 ### POST: /movie
 #### Body: ```{ "name": "Os Vingadores", "streaming": "netflix", "genre": "action","alreadySaw": "false" ,"comment"?: "Filme legal" } ```
