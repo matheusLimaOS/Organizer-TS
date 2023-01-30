@@ -8,10 +8,30 @@ datasource db {
 }
 
 model movies {
-  id          Int     @id(map: "movies_pk") @default(autoincrement())
-  name        String
-  alreadyseen Boolean
-  comment     String?
-  streaming   String
-  genre       String
+  id        Int       @id(map: "movies_pk") @default(autoincrement())
+  name      String
+  rating    Int
+  createdAt DateTime  @db.Date
+  streaming String
+  genre     String
+  ratings   ratings[]
+}
+
+model ratings {
+  id        Int     @id(map: "ratings_pk") @default(autoincrement())
+  name      String
+  comment   String?
+  movieId   Int     @default(autoincrement())
+  userId    Int     @default(autoincrement())
+  rating    Int
+  createdAt String? @db.VarChar
+  movies    movies  @relation(fields: [movieId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ratings_fk")
+  users     users   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ratings_fk_1")
+}
+
+model users {
+  id        Int       @id(map: "users_pk") @default(autoincrement())
+  name      String
+  createdAt DateTime  @db.Date
+  ratings   ratings[]
 }

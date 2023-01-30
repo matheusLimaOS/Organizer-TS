@@ -7,4 +7,10 @@ export type EntityMovie = {
     comment?: string
 }
 
+export type EntityUser = {
+    id: number,
+    name: string,
+}
+
+export type User = Omit<EntityUser,"id">
 export type Movie = Omit<EntityMovie,"id">
