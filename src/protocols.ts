@@ -11,7 +11,6 @@ export type EntityMovie = {
 
 export type EntityRatings = {
     id: number,
-    name:string,
     comment?:String,
     movieId:number,
     userId:number,
@@ -24,7 +23,7 @@ export type EntityUser = {
     name: string,
 }
 
-export type rating = Omit<EntityRatings,"id" | "createdAt">
+export type Rating = Omit<EntityRatings,"id" | "createdAt">
 export type User = Omit<EntityUser,"id">
 export type Movie = Omit<EntityMovie,"id" | "ratings" | "createdAt">
 export type MovieWithoutRatings = Omit<EntityMovie,"ratings">

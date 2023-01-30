@@ -3,6 +3,7 @@ import { insertMovieSchema } from "../schemas/movieSchema.js";
 import { EntityMovie, Movie, MovieWithoutRatings } from "../protocols";
 import { ValidationResult } from "joi";
 import { insert, get , del, getByID } from "../repositories/movieRepository.js";
+import { deleteRatingByMovieId } from "../repositories/ratingRepository.js";
 
 export async function insertMovie(req:Request,res:Response){
     try{
@@ -49,7 +50,8 @@ export async function deleteMovie(req:Request,res:Response){
             return res.status(404).send({message: "movie not found"});
         }
         
-        await del(id) 
+        //await deleteRatingByMovieId(Number(id));
+        await del(id);
 
         res.sendStatus(200);
     }
