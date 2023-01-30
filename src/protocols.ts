@@ -3,7 +3,7 @@ export type EntityMovie = {
     name: string,
     streaming: string,
     genre: string,
-    alreadySeen: boolean,
+    alreadyseen: boolean,
     comment?: string
 }
 

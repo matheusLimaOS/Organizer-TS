@@ -1,50 +1,53 @@
-import {connection} from '../database/database.js';
 import { EntityMovie, Movie } from '../protocols.js';
+import { prisma } from "../config/database.js";
 
 export async function insert(movie:Movie) {
-    await connection.query(`INSERT INTO movies VALUES (default, $1, $2, $3, $4, $5)`, [
-      movie.name,
-      movie.alreadySeen,
-      (movie.comment === undefined ? null : movie.comment),
-      movie.streaming,
-      movie.genre
-    ]);
+    await prisma.movies.create({
+        data:movie
+    })
 }
 
 export async function get():Promise<EntityMovie[]> {
-    return (await connection.query(`SELECT * FROM movies`)).rows;
+    return await prisma.movies.findMany();
 }
 
 export async function getByID(id:string):Promise<EntityMovie[]> {
-    return (await connection.query(`
-        SELECT * FROM movies m
-        WHERE m.id = $1
-    `,[id])).rows;
+    const movieId = Number(id);
+
+    return await prisma.movies.findMany({
+        where:{
+            id:movieId
+        }
+    })
 }
 
 export async function getAlreadySaw():Promise<EntityMovie[]> {
-    return (await connection.query(`
-        SELECT * FROM movies m
-        WHERE m.alreadySeen = true
-    `)).rows;
+    return await prisma.movies.findMany({
+        where:{
+            alreadyseen:true
+        }
+    })
 }
 
 export async function update(id:string,comment:string) {
-    return (await connection.query(`
-        UPDATE movies
-        SET "alreadyseen" = true, comment = $1
-        WHERE id = $2
-    `,[
-        (comment === undefined ? null : comment),
-        id
-    ])).rows;
+    const movieId = Number(id);
+
+    return await prisma.movies.update({
+        data:{
+            comment
+        },
+        where:{
+            id:movieId
+        }
+    })
 }
 
 export async function del(id:string) {
-    return (await connection.query(`
-        DELETE FROM movies
-        WHERE id = $1
-    `,[
-        id
-    ])).rows;
+    const movieId = Number(id);
+
+    return prisma.movies.delete({
+        where:{
+            id:movieId
+        }
+    })
 }
