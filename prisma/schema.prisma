@@ -11,7 +11,7 @@ model movies {
   id        Int       @id(map: "movies_pk") @default(autoincrement())
   name      String
   rating    Int
-  createdAt DateTime  @db.Date
+  createdAt DateTime  @default(now())
   streaming String
   genre     String
   ratings   ratings[]
@@ -24,7 +24,7 @@ model ratings {
   movieId   Int     @default(autoincrement())
   userId    Int     @default(autoincrement())
   rating    Int
-  createdAt String? @db.VarChar
+  createdAt DateTime @default(now())
   movies    movies  @relation(fields: [movieId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ratings_fk")
   users     users   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ratings_fk_1")
 }
@@ -32,6 +32,6 @@ model ratings {
 model users {
   id        Int       @id(map: "users_pk") @default(autoincrement())
   name      String
-  createdAt DateTime  @db.Date
+  createdAt DateTime  @default(now())
   ratings   ratings[]
 }

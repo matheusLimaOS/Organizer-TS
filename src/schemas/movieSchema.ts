@@ -5,6 +5,5 @@ export const insertMovieSchema = joi.object<Movie>({
     name: joi.string().required(),
     streaming: joi.string().required(),
     genre: joi.string().required(),
-    alreadyseen: joi.bool().required(),
-    comment: joi.string().max(250)
-});
+    rating: joi.number().required()
+})

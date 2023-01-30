@@ -1,4 +1,4 @@
-import { EntityMovie, Movie } from '../protocols.js';
+import { EntityMovie, Movie, MovieWithoutRatings } from '../protocols.js';
 import { prisma } from "../config/database.js";
 
 export async function insert(movie:Movie) {
@@ -8,33 +8,19 @@ export async function insert(movie:Movie) {
 }
 
 export async function get():Promise<EntityMovie[]> {
-    return await prisma.movies.findMany();
+    return await prisma.movies.findMany({
+        include:{
+            ratings:true
+        }
+    });
 }
 
-export async function getByID(id:string):Promise<EntityMovie[]> {
+export async function getByID(id:string):Promise<MovieWithoutRatings> {
     const movieId = Number(id);
 
-    return await prisma.movies.findMany({
-        where:{
-            id:movieId
-        }
-    })
-}
-
-export async function getAlreadySaw():Promise<EntityMovie[]> {
-    return await prisma.movies.findMany({
-        where:{
-            alreadyseen:true
-        }
-    })
-}
-
-export async function update(id:string,comment:string) {
-    const movieId = Number(id);
-
-    return await prisma.movies.update({
-        data:{
-            comment
+    return await prisma.movies.findFirst({
+        include:{
+            ratings:true
         },
         where:{
             id:movieId
@@ -42,10 +28,21 @@ export async function update(id:string,comment:string) {
     })
 }
 
+export async function updateMovieRating(rating:number,movieId:number) {
+    await prisma.movies.update({
+        where:{
+            id:movieId
+        },
+        data:{
+            rating:rating
+        }
+    })
+}
+
 export async function del(id:string) {
     const movieId = Number(id);
 
-    return prisma.movies.delete({
+    await prisma.movies.delete({
         where:{
             id:movieId
         }

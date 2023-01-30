@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { insertUserSchema } from "../schemas/userSchema";
-import { insertUserDB } from "../repositories/userRepository";
+import { insertUserSchema } from "../schemas/userSchema.js";
+import { insertUserDB } from "../repositories/userRepository.js";
 
 export async function insertUser(req:Request,res:Response){
     try{
